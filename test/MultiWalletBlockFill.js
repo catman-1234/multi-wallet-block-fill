@@ -8,7 +8,7 @@ describe("Multi Wallet Block Fill Test", function () {
   // Configuration
   const CONTRACT_ADDRESS = "0x8bE7A35e29048072194a64b2EaA6a3AbE1eAff67";
   const MINIMUM_WALLET_BALANCE = 0.1;
-  const BLOCKS_TO_FILL = 1;
+  const BLOCKS_TO_FILL = 100;
 
   // Test state
   let provider;

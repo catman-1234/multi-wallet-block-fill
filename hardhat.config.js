@@ -15,7 +15,7 @@ module.exports = {
   },
   networks: {
     worldmobileBase: {
-      url: process.env.WORLDMOBILE_BASE_RPC_URL || "",
+      url: process.env.WORLDMOBILE_BASE_TESTNET_RPC_URL || "",
       accounts: [deployerPrivateKey],
     },
   },
