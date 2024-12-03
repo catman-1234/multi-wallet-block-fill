@@ -14,7 +14,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
    - Install with: `npm install -g yarn`
    - Verify installation: `yarn --version`
 
-3. **Funded Deployer Wallet**
+3. **Funding Wallet**
    - Minimum 0.5 WMTx balance
    - Will be used to fund test wallets
    - Use a dedicated testing wallet, not your main wallet
@@ -37,13 +37,14 @@ A load test using multiple wallets to create many heavy transactions to try and 
 3. Create a `.env` file in the root directory:
 
    ```env
-   DEPLOYER_PRIVATE_KEY=your_deployer_private_key
+   FUNDING_WALLET_PRIVATE_KEY=your_funding_wallet_private_key
    WALLET_1_PRIVATE_KEY=your_wallet_1_private_key
    WALLET_2_PRIVATE_KEY=your_wallet_2_private_key
    WALLET_3_PRIVATE_KEY=your_wallet_3_private_key
    WALLET_4_PRIVATE_KEY=your_wallet_4_private_key
    WALLET_5_PRIVATE_KEY=your_wallet_5_private_key
    WORLDMOBILE_BASE_TESTNET_RPC_URL=worldmobile_base_testnet_rpc_endpoint
+   CONTRACT_ADDRESS=BlockMaxFiller_address_found_in_explorer
    ```
 
    If you don't have extra wallets to use, you can generate some with the following command:
@@ -59,7 +60,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
    ```
 
    The generated wallets will be output to the console and also saved to a file in the `/generated` directory eg. `generated/generated-wallets-2024-12-03T20-26-50-959Z.md`
-   Copy the private keys and paste them into the `.env` file. They will be funded with 0.1 WMTx from your deployer wallet during the test.
+   Copy the private keys and paste them into the `.env` file. They will be funded with 0.1 WMTx from your funding wallet during the test.
 
 4. Run the test:
    ```bash
@@ -68,12 +69,17 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
 ## What the Test Does
 
-1. Loads 5 wallets from environment variables
-2. Funds each test wallet with 0.1 WMTx automatically
-3. Attempts to fill 100 blocks by:
-   - Clearing storage for each wallet
-   - Sending concurrent transactions from all wallets
-   - Tracking success/failure rates
+1. Loads 5 test wallets from environment variables
+2. Funds each test wallet with 0.1 WMTx automatically from the funding wallet
+3. Attempts to fill 100 blocks by having each wallet send concurrent transactions to the BlockMaxFiller contract:
+   - First transaction: Calls `clearStorage()` to reset 3000 storage slots
+   - Second transaction: Calls `fillBlock()` which:
+     - Performs 20 factorial calculations, storing results across multiple slots
+     - Writes to ~1000 additional storage slots
+     - Emits debug events at key intervals
+4. Tracks transaction success/failure rates and block utilization
+
+The test is designed to stress-test block capacity by maximizing storage operations and state changes within each block through parallel wallet interactions with the contract.
 
 ## Expected Output
 
@@ -90,7 +96,7 @@ The test will show:
 
 ## Resource Requirements
 
-- Deployer wallet: ~0.5 WMTx (0.1 WMTx per test wallet)
+- Funding wallet: ~0.5 WMTx (0.1 WMTx per test wallet)
 - Test duration: 15-30 minutes
 - Stable network connection
 
@@ -100,7 +106,7 @@ Common issues and solutions:
 
 1. **Wallet Funding Failures**
 
-   - Verify deployer wallet balance
+   - Verify funding wallet balance
 
 2. **Test Timeouts**
    - Default timeout: 1 hour

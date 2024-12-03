@@ -6,13 +6,12 @@ describe("Multi Wallet Block Fill Test", function () {
   this.timeout(60 * 60 * 1000);
 
   // Configuration
-  const CONTRACT_ADDRESS = "0x8bE7A35e29048072194a64b2EaA6a3AbE1eAff67";
   const MINIMUM_WALLET_BALANCE = 0.1;
   const BLOCKS_TO_FILL = 100;
 
   // Test state
   let provider;
-  let deployer;
+  let fundingWallet;
   let walletConnectedContracts;
   let startBlock;
 
@@ -28,7 +27,7 @@ describe("Multi Wallet Block Fill Test", function () {
       const fundAmount =
         ethers.parseEther(MINIMUM_WALLET_BALANCE.toString()) - balance;
       console.log(`Funding Wallet ${index + 1}...`);
-      const fundTx = await deployer.sendTransaction({
+      const fundTx = await fundingWallet.sendTransaction({
         to: wallet.address,
         value: fundAmount,
       });
@@ -43,7 +42,7 @@ describe("Multi Wallet Block Fill Test", function () {
     // Connect wallet to contract
     const blockMaxFiller = await ethers.getContractAt(
       "IBlockMaxFiller",
-      CONTRACT_ADDRESS
+      process.env.CONTRACT_ADDRESS
     );
     const contractWithSigner = blockMaxFiller.connect(wallet);
     console.log(`Wallet ${index + 1} ready:`, wallet.address);
@@ -120,7 +119,7 @@ describe("Multi Wallet Block Fill Test", function () {
 
   it("Should fill blocks from multiple wallets simultaneously", async function () {
     provider = await ethers.provider;
-    [deployer] = await ethers.getSigners();
+    [fundingWallet] = await ethers.getSigners();
     startBlock = await provider.getBlock("latest");
 
     // Initialize wallets and contracts
