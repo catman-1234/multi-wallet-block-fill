@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Cache and build files
+cache/
+artifacts/
+dist/
+build/
+typechain/
+typechain-types/
+coverage/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+# Hardhat files
+hardhat.config.js.timestamp-*
+.openzeppelin/
+coverage.json
+gas-report.txt
+
+# Solidity cache
+cache/
+solidity-files-cache.json
+
+# Test files
+coverage/
+coverage.json
+
+# Generated wallet files
+generated/
+generated-wallets-*.md

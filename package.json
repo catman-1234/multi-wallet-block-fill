@@ -1,0 +1,16 @@
+{
+  "name": "multi-wallet-block-fill",
+  "packageManager": "yarn@4.3.1",
+  "scripts": {
+    "test": "hardhat test",
+    "generate-wallets": "node scripts/generateWallets.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "hardhat": "^2.22.17"
+  }
+}
