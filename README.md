@@ -1,4 +1,4 @@
-# MultiWalletBlockFill
+# multi-wallet-block-fill
 
 A load test using multiple wallets to create many heavy transactions to try and fill blocks.
 
@@ -15,7 +15,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
    - Verify installation: `yarn --version`
 
 3. **Funding Wallet**
-   - Minimum 0.5 WMTx balance
+   - Minimum 0.5 WMTx balance on WMC Base Testnet
    - Will be used to fund test wallets
    - Use a dedicated testing wallet, not your main wallet
 
