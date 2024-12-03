@@ -15,7 +15,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
    - Verify installation: `yarn --version`
 
 3. **Funded Deployer Wallet**
-   - Minimum 0.5 ETH (or equivalent) balance
+   - Minimum 0.5 WMTx balance
    - Will be used to fund test wallets
    - Use a dedicated testing wallet, not your main wallet
 
@@ -69,7 +69,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
 ## What the Test Does
 
 1. Loads 5 wallets from environment variables
-2. Funds each test wallet with 0.1 ETH automatically
+2. Funds each test wallet with 0.1 WMTx automatically
 3. Attempts to fill 100 blocks by:
    - Clearing storage for each wallet
    - Sending concurrent transactions from all wallets
@@ -90,7 +90,7 @@ The test will show:
 
 ## Resource Requirements
 
-- Deployer wallet: ~0.5 ETH (0.1 ETH per test wallet)
+- Deployer wallet: ~0.5 WMTx (0.1 WMTx per test wallet)
 - Test duration: 15-30 minutes
 - Stable network connection
 

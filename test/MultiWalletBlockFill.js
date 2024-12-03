@@ -21,10 +21,10 @@ describe("Multi Wallet Block Fill Test", function () {
 
     // Check and fund wallet
     const balance = await provider.getBalance(wallet.address);
-    const balanceInEth = Number(ethers.formatEther(balance));
-    console.log(`Wallet ${index + 1} balance:`, balanceInEth, "ETH");
+    const balanceInWMTx = Number(ethers.formatEther(balance));
+    console.log(`Wallet ${index + 1} balance:`, balanceInWMTx, "WMTx");
 
-    if (balanceInEth < MINIMUM_WALLET_BALANCE) {
+    if (balanceInWMTx < MINIMUM_WALLET_BALANCE) {
       const fundAmount =
         ethers.parseEther(MINIMUM_WALLET_BALANCE.toString()) - balance;
       console.log(`Funding Wallet ${index + 1}...`);
