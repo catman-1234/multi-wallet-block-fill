@@ -24,8 +24,8 @@ A load test using multiple wallets to create many heavy transactions to try and 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/MultiWalletBlockFill.git
-   cd MultiWalletBlockFill
+   git clone git@github.com:catman-1234/multi-wallet-block-fill.git
+   cd multi-wallet-block-fill
    ```
 
 2. Install dependencies:
@@ -61,6 +61,8 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
    The generated wallets will be output to the console and also saved to a file in the `/generated` directory eg. `generated/generated-wallets-2024-12-03T20-26-50-959Z.md`
    Copy the private keys and paste them into the `.env` file. They will be funded with 0.1 WMTx from your funding wallet during the test.
+
+   If you want to use more or less than the default amount of 5 in the test then you will also need to edit the `Initialize wallets and contracts` section of the test and pass the correct environment variables.
 
 4. Run the test:
    ```bash
@@ -109,14 +111,17 @@ Common issues and solutions:
    - Verify funding wallet balance
 
 2. **Test Timeouts**
+
    - Default timeout: 1 hour
    - Adjust in test file if needed
 
+3. **Network Issues**
+   - Verify blocks are being produced on the network before running the test
+
 ## Security Notes
 
-- Never commit `.env` file to version control
+- Never commit the `.env` or the generated wallets files to version control
 - Use dedicated testing wallets only
-- Verify blocks are being produced on the network before running the test
 
 ## License
 
