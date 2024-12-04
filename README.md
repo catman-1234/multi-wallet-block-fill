@@ -64,6 +64,14 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
    If you want to use more or less than the default amount of 5 in the test then you will also need to edit the `Initialize wallets and contracts` section of the test and pass the correct environment variables.
 
+   You can check the balance of all wallets in your .env file with:
+
+   ```bash
+   yarn check-balances
+   ```
+
+   This will show the balance of your funding wallet and all test wallets.
+
 4. Run the test:
    ```bash
    yarn test
@@ -80,6 +88,7 @@ A load test using multiple wallets to create many heavy transactions to try and 
      - Writes to ~1000 additional storage slots
      - Emits debug events at key intervals
 4. Tracks transaction success/failure rates and block utilization
+5. Returns remaining funds from test wallets back to the funding wallet after completion
 
 The test is designed to stress-test block capacity by maximizing storage operations and state changes within each block through parallel wallet interactions with the contract.
 
@@ -95,6 +104,7 @@ The test will show:
   - Total transaction attempts
   - Success/failure rates
   - Overall performance metrics
+- Cleanup status showing funds returned to funding wallet
 
 ## Resource Requirements
 

@@ -47,7 +47,7 @@ describe("Multi Wallet Block Fill Test", function () {
     const contractWithSigner = blockMaxFiller.connect(wallet);
     console.log(`Wallet ${index + 1} ready:`, wallet.address);
 
-    return contractWithSigner;
+    return { contract: contractWithSigner, wallet };
   }
 
   async function sendBlockFillTransaction(contract, walletIndex) {
@@ -117,6 +117,47 @@ describe("Multi Wallet Block Fill Test", function () {
     );
   }
 
+  async function returnFundsToFundingWallet(wallets, provider, fundingWallet) {
+    console.log("\nReturning remaining funds to funding wallet...");
+    let totalReturned = ethers.parseEther("0");
+
+    for (let i = 0; i < wallets.length; i++) {
+      try {
+        const wallet = wallets[i];
+        const balance = await provider.getBalance(wallet.getAddress());
+
+        // Leave enough for gas (0.01 WMTx)
+        const gasBuffer = ethers.parseEther("0.01");
+        if (balance > gasBuffer) {
+          const returnAmount = balance - gasBuffer;
+
+          // Create and send the transaction
+          const tx = await wallet.sendTransaction({
+            to: fundingWallet.address,
+            value: returnAmount,
+            gasLimit: 21000, // Standard ETH transfer gas limit
+          });
+
+          await tx.wait();
+          totalReturned += returnAmount;
+
+          console.log(
+            `Wallet ${i + 1} returned ${ethers.formatEther(returnAmount)} WMTx`
+          );
+        }
+      } catch (error) {
+        console.log(
+          `Failed to return funds from wallet ${i + 1}:`,
+          error.message
+        );
+      }
+    }
+
+    console.log(
+      `Total funds returned: ${ethers.formatEther(totalReturned)} WMTx`
+    );
+  }
+
   it("Should fill blocks from multiple wallets simultaneously", async function () {
     provider = await ethers.provider;
     [fundingWallet] = await ethers.getSigners();
@@ -133,10 +174,12 @@ describe("Multi Wallet Block Fill Test", function () {
     ];
 
     // Sequential wallet initialization
+    const wallets = [];
     walletConnectedContracts = [];
     for (let i = 0; i < privateKeys.length; i++) {
-      const contractWithWallet = await initializeWallet(privateKeys[i], i);
-      walletConnectedContracts.push(contractWithWallet);
+      const { contract, wallet } = await initializeWallet(privateKeys[i], i);
+      walletConnectedContracts.push(contract);
+      wallets.push(wallet);
     }
 
     // Log initial block info
@@ -178,5 +221,8 @@ describe("Multi Wallet Block Fill Test", function () {
       failCount,
       walletConnectedContracts.length
     );
+
+    // Add this before the end of the test
+    await returnFundsToFundingWallet(wallets, provider, fundingWallet);
   });
 });

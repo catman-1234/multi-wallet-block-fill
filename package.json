@@ -3,7 +3,8 @@
   "packageManager": "yarn@4.3.1",
   "scripts": {
     "test": "hardhat test",
-    "generate-wallets": "node scripts/generateWallets.js"
+    "generate-wallets": "node scripts/generateWallets.js",
+    "check-balances": "hardhat run scripts/checkWalletBalances.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
