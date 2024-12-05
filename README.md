@@ -71,6 +71,14 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
    This will show the balance of your funding wallet and all test wallets.
 
+   You can check the current gas price on the network with:
+
+   ```bash
+   yarn check-gas
+   ```
+
+   This will display the gas price in WMTx, Gwei, and Wei units.
+
 4. Deploy the contract:
 
    ```bash

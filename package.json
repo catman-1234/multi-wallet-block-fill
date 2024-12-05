@@ -5,7 +5,8 @@
     "test": "hardhat test",
     "generate-wallets": "node scripts/generateWallets.js",
     "check-balances": "hardhat run scripts/checkWalletBalances.js",
-    "deploy": "hardhat run scripts/deploy.js"
+    "deploy": "hardhat run scripts/deploy.js",
+    "check-gas": "node scripts/checkGasPrice.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
