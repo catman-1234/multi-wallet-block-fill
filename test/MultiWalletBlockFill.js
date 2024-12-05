@@ -1,12 +1,14 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
 describe("Multi Wallet Block Fill Test", function () {
   // Set timeout to 1 hour
   this.timeout(60 * 60 * 1000);
 
   // Configuration
-  const MINIMUM_WALLET_BALANCE = 0.1;
+  const MINIMUM_WALLET_BALANCE = 0.01;
   const BLOCKS_TO_FILL = 100;
 
   // Test state
@@ -40,9 +42,23 @@ describe("Multi Wallet Block Fill Test", function () {
     }
 
     // Connect wallet to contract
-    const blockMaxFiller = await ethers.getContractAt(
-      "IBlockMaxFiller",
-      process.env.CONTRACT_ADDRESS
+    const network = hre.network.name;
+    const deploymentPath = path.join(
+      __dirname,
+      "../deployments",
+      `${network}.json`
+    );
+
+    if (!fs.existsSync(deploymentPath)) {
+      throw new Error(
+        `No deployment found for network ${network}. Please run deployment script first.`
+      );
+    }
+
+    const deploymentInfo = JSON.parse(fs.readFileSync(deploymentPath, "utf8"));
+    blockMaxFiller = await ethers.getContractAt(
+      "BlockMaxFiller",
+      deploymentInfo.contractAddress
     );
     const contractWithSigner = blockMaxFiller.connect(wallet);
     console.log(`Wallet ${index + 1} ready:`, wallet.address);
@@ -171,6 +187,101 @@ describe("Multi Wallet Block Fill Test", function () {
       process.env.WALLET_3_PRIVATE_KEY,
       process.env.WALLET_4_PRIVATE_KEY,
       process.env.WALLET_5_PRIVATE_KEY,
+      process.env.WALLET_6_PRIVATE_KEY,
+      process.env.WALLET_7_PRIVATE_KEY,
+      process.env.WALLET_8_PRIVATE_KEY,
+      process.env.WALLET_9_PRIVATE_KEY,
+      process.env.WALLET_10_PRIVATE_KEY,
+      process.env.WALLET_11_PRIVATE_KEY,
+      process.env.WALLET_12_PRIVATE_KEY,
+      process.env.WALLET_13_PRIVATE_KEY,
+      process.env.WALLET_14_PRIVATE_KEY,
+      process.env.WALLET_15_PRIVATE_KEY,
+      process.env.WALLET_16_PRIVATE_KEY,
+      process.env.WALLET_17_PRIVATE_KEY,
+      process.env.WALLET_18_PRIVATE_KEY,
+      process.env.WALLET_19_PRIVATE_KEY,
+      process.env.WALLET_20_PRIVATE_KEY,
+      process.env.WALLET_21_PRIVATE_KEY,
+      process.env.WALLET_22_PRIVATE_KEY,
+      process.env.WALLET_23_PRIVATE_KEY,
+      process.env.WALLET_24_PRIVATE_KEY,
+      process.env.WALLET_25_PRIVATE_KEY,
+      process.env.WALLET_26_PRIVATE_KEY,
+      process.env.WALLET_27_PRIVATE_KEY,
+      process.env.WALLET_28_PRIVATE_KEY,
+      process.env.WALLET_29_PRIVATE_KEY,
+      process.env.WALLET_30_PRIVATE_KEY,
+      process.env.WALLET_31_PRIVATE_KEY,
+      process.env.WALLET_32_PRIVATE_KEY,
+      process.env.WALLET_33_PRIVATE_KEY,
+      process.env.WALLET_34_PRIVATE_KEY,
+      process.env.WALLET_35_PRIVATE_KEY,
+      process.env.WALLET_36_PRIVATE_KEY,
+      process.env.WALLET_37_PRIVATE_KEY,
+      process.env.WALLET_38_PRIVATE_KEY,
+      process.env.WALLET_39_PRIVATE_KEY,
+      process.env.WALLET_40_PRIVATE_KEY,
+      process.env.WALLET_41_PRIVATE_KEY,
+      process.env.WALLET_42_PRIVATE_KEY,
+      process.env.WALLET_43_PRIVATE_KEY,
+      process.env.WALLET_44_PRIVATE_KEY,
+      process.env.WALLET_45_PRIVATE_KEY,
+      process.env.WALLET_46_PRIVATE_KEY,
+      process.env.WALLET_47_PRIVATE_KEY,
+      process.env.WALLET_48_PRIVATE_KEY,
+      process.env.WALLET_49_PRIVATE_KEY,
+      process.env.WALLET_50_PRIVATE_KEY,
+      process.env.WALLET_51_PRIVATE_KEY,
+      process.env.WALLET_52_PRIVATE_KEY,
+      process.env.WALLET_53_PRIVATE_KEY,
+      process.env.WALLET_54_PRIVATE_KEY,
+      process.env.WALLET_55_PRIVATE_KEY,
+      process.env.WALLET_56_PRIVATE_KEY,
+      process.env.WALLET_57_PRIVATE_KEY,
+      process.env.WALLET_58_PRIVATE_KEY,
+      process.env.WALLET_59_PRIVATE_KEY,
+      process.env.WALLET_60_PRIVATE_KEY,
+      process.env.WALLET_61_PRIVATE_KEY,
+      process.env.WALLET_62_PRIVATE_KEY,
+      process.env.WALLET_63_PRIVATE_KEY,
+      process.env.WALLET_64_PRIVATE_KEY,
+      process.env.WALLET_65_PRIVATE_KEY,
+      process.env.WALLET_66_PRIVATE_KEY,
+      process.env.WALLET_67_PRIVATE_KEY,
+      process.env.WALLET_68_PRIVATE_KEY,
+      process.env.WALLET_69_PRIVATE_KEY,
+      process.env.WALLET_70_PRIVATE_KEY,
+      process.env.WALLET_71_PRIVATE_KEY,
+      process.env.WALLET_72_PRIVATE_KEY,
+      process.env.WALLET_73_PRIVATE_KEY,
+      process.env.WALLET_74_PRIVATE_KEY,
+      process.env.WALLET_75_PRIVATE_KEY,
+      process.env.WALLET_76_PRIVATE_KEY,
+      process.env.WALLET_77_PRIVATE_KEY,
+      process.env.WALLET_78_PRIVATE_KEY,
+      process.env.WALLET_79_PRIVATE_KEY,
+      process.env.WALLET_80_PRIVATE_KEY,
+      process.env.WALLET_81_PRIVATE_KEY,
+      process.env.WALLET_82_PRIVATE_KEY,
+      process.env.WALLET_83_PRIVATE_KEY,
+      process.env.WALLET_84_PRIVATE_KEY,
+      process.env.WALLET_85_PRIVATE_KEY,
+      process.env.WALLET_86_PRIVATE_KEY,
+      process.env.WALLET_87_PRIVATE_KEY,
+      process.env.WALLET_88_PRIVATE_KEY,
+      process.env.WALLET_89_PRIVATE_KEY,
+      process.env.WALLET_90_PRIVATE_KEY,
+      process.env.WALLET_91_PRIVATE_KEY,
+      process.env.WALLET_92_PRIVATE_KEY,
+      process.env.WALLET_93_PRIVATE_KEY,
+      process.env.WALLET_94_PRIVATE_KEY,
+      process.env.WALLET_95_PRIVATE_KEY,
+      process.env.WALLET_96_PRIVATE_KEY,
+      process.env.WALLET_97_PRIVATE_KEY,
+      process.env.WALLET_98_PRIVATE_KEY,
+      process.env.WALLET_99_PRIVATE_KEY,
+      process.env.WALLET_100_PRIVATE_KEY,
     ];
 
     // Sequential wallet initialization
@@ -222,7 +333,6 @@ describe("Multi Wallet Block Fill Test", function () {
       walletConnectedContracts.length
     );
 
-    // Add this before the end of the test
     await returnFundsToFundingWallet(wallets, provider, fundingWallet);
   });
 });

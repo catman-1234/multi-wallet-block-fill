@@ -43,6 +43,7 @@ hardhat.config.js.timestamp-*
 .openzeppelin/
 coverage.json
 gas-report.txt
+deployments/
 
 # Solidity cache
 cache/

@@ -44,7 +44,6 @@ A load test using multiple wallets to create many heavy transactions to try and 
    WALLET_4_PRIVATE_KEY=your_wallet_4_private_key
    WALLET_5_PRIVATE_KEY=your_wallet_5_private_key
    WORLDMOBILE_BASE_TESTNET_RPC_URL=worldmobile_base_testnet_rpc_endpoint
-   CONTRACT_ADDRESS=BlockMaxFiller_address_found_in_explorer
    ```
 
    If you don't have extra wallets to use, you can generate some with the following command:
@@ -72,25 +71,33 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
    This will show the balance of your funding wallet and all test wallets.
 
-4. Run the test:
+4. Deploy the contract:
+
+   ```bash
+   yarn deploy
+   ```
+
+   This will deploy the contract and save the address in `deployments/worldmobileBase.json`
+
+5. Run the test:
    ```bash
    yarn test
    ```
 
 ## What the Test Does
 
-1. Loads 5 test wallets from environment variables
+1. Loads test wallets from environment variables
 2. Funds each test wallet with 0.1 WMTx automatically from the funding wallet
-3. Attempts to fill 100 blocks by having each wallet send concurrent transactions to the BlockMaxFiller contract:
-   - First transaction: Calls `clearStorage()` to reset 3000 storage slots
+3. Attempts to fill blocks by having each wallet send concurrent transactions to the BlockMaxFiller contract:
+   - First transaction: Calls `clearStorage()` to reset storage slots
    - Second transaction: Calls `fillBlock()` which:
-     - Performs 20 factorial calculations, storing results across multiple slots
-     - Writes to ~1000 additional storage slots
+     - Performs factorial calculations and stores results across slots
+     - Writes to additional storage slots
      - Emits debug events at key intervals
 4. Tracks transaction success/failure rates and block utilization
 5. Returns remaining funds from test wallets back to the funding wallet after completion
 
-The test is designed to stress-test block capacity by maximizing storage operations and state changes within each block through parallel wallet interactions with the contract.
+The test is designed to test block capacity by using multiple wallets to send transactions in parallel, attempting to maximize the number of transactions that can fit in each block.
 
 ## Expected Output
 
