@@ -93,6 +93,8 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
    If you encounter any issues during deployment, check the console output for error messages and verify your network connection and configuration settings.
 
+   You don't need to deploy every time you run the test, only do it when you make changes to the contract.
+
 5. Run the test:
    ```bash
    yarn test
@@ -129,8 +131,10 @@ The test will show:
 
 ## Resource Requirements
 
-- Funding wallet: ~0.5 WMTx (0.1 WMTx per test wallet)
-- Test duration: 15-30 minutes
+- Funding wallet: Minimum balance required = (number of test wallets × WMTx per wallet, currently set to 0.01 in the test)
+  - Example: For 100 wallets = 1 WMTx minimum
+  - Add extra for gas fees and safety margin
+- Test duration: 15-30 minutes (may vary based on number of wallets)
 - Stable network connection
 
 ## Troubleshooting
@@ -147,7 +151,17 @@ Common issues and solutions:
    - Adjust in test file if needed
 
 3. **Network Issues**
+
    - Verify blocks are being produced on the network before running the test
+
+4. **Gas Price**
+
+   - Wallets can run out of gas if the gas price is too high
+   - You can check the current gas price on the network with:
+
+   ```bash
+   yarn check-gas
+   ```
 
 ## Security Notes
 
