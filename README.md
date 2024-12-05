@@ -81,11 +81,17 @@ A load test using multiple wallets to create many heavy transactions to try and 
 
 4. Deploy the contract:
 
+   Before deploying, you can customize the contract to suit your needs. The contract files are located in the `contracts` directory. Make any necessary changes to the contract code, such as modifying functions, adding new features, or adjusting parameters.
+
+   Once you have made your changes, deploy the contract using the following command:
+
    ```bash
    yarn deploy
    ```
 
-   This will deploy the contract and save the address in `deployments/worldmobileBase.json`
+   This will deploy the contract to the network specified in your Hardhat configuration and save the contract address in `deployments/worldmobileBase.json`. Ensure that your `.env` file is correctly configured with the necessary network RPC URL and private keys.
+
+   If you encounter any issues during deployment, check the console output for error messages and verify your network connection and configuration settings.
 
 5. Run the test:
    ```bash
