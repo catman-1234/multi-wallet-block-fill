@@ -6,7 +6,11 @@
     "generate-wallets": "node scripts/generateWallets.js",
     "check-balances": "hardhat run scripts/checkWalletBalances.js",
     "deploy": "hardhat run scripts/deploy.js",
-    "check-gas": "node scripts/checkGasPrice.js"
+    "check-gas": "node scripts/checkGasPrice.js",
+    "check-utilization": "hardhat run scripts/checkNetworkUtilization.js",
+    "analyze-network": "hardhat run scripts/analyzeNetwork.js",
+    "analyze-latest-block": "hardhat run scripts/analyzeLatestBlock.js",
+    "analyze-recent-blocks": "hardhat run scripts/analyzeRecentBlocks.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
