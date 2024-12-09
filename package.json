@@ -10,7 +10,8 @@
     "check-utilization": "hardhat run scripts/checkNetworkUtilization.js",
     "analyze-network": "hardhat run scripts/analyzeNetwork.js",
     "analyze-latest-block": "hardhat run scripts/analyzeLatestBlock.js",
-    "analyze-recent-blocks": "hardhat run scripts/analyzeRecentBlocks.js"
+    "analyze-recent-blocks": "hardhat run scripts/analyzeRecentBlocks.js",
+    "spam": "node test/spam.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
